@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Reports — SumUp</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand: #00B4D8;
+      --brand-dark: #0077A8;
+      --brand-light: #E0F7FC;
+      --accent: #FF6B35;
+      --text: #111827;
+      --text-2: #4B5563;
+      --text-3: #9CA3AF;
+      --border: #E5E7EB;
+      --bg: #F9FAFB;
+      --white: #ffffff;
+      --green: #10B981;
+      --radius: 12px;
+      --shadow: 0 1px 4px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.04);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ─────────────────────────────────────────── */
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 18px; color: var(--text); text-decoration: none; }
+    .logo-mark {
+      width: 28px; height: 28px; background: var(--brand); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-mark svg { width: 16px; height: 16px; }
+    .header-badge {
+      margin-left: auto;
+      background: var(--brand-light);
+      color: var(--brand-dark);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, #0077A8 0%, #00B4D8 60%, #00D4AA 100%);
+      color: white;
+      padding: 56px 24px 48px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.8;
+      margin-bottom: 12px;
+    }
+    .hero h1 { font-size: clamp(26px, 5vw, 40px); font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+    .hero p { font-size: 16px; opacity: 0.9; max-width: 520px; margin: 0 auto 32px; line-height: 1.6; }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat .n { font-size: 28px; font-weight: 700; }
+    .hero-stat .l { font-size: 12px; opacity: 0.75; margin-top: 2px; }
+
+    /* ── NAV PILLS ───────────────────────────────────────── */
+    .nav-pills-wrap {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      position: sticky;
+      top: 56px;
+      z-index: 90;
+      overflow-x: auto;
+    }
+    .nav-pills {
+      display: flex;
+      gap: 0;
+      white-space: nowrap;
+      min-width: max-content;
+    }
+    .nav-pill {
+      padding: 14px 18px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-2);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+      user-select: none;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+    }
+    .nav-pill:hover { color: var(--brand-dark); }
+    .nav-pill.active { color: var(--brand-dark); border-bottom-color: var(--brand); font-weight: 600; }
+
+    /* ── SECTIONS ────────────────────────────────────────── */
+    .section { padding: 48px 24px; max-width: 960px; margin: 0 auto; }
+    .section-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .section-sub { font-size: 15px; color: var(--text-2); margin-bottom: 32px; line-height: 1.6; }
+
+    /* ── WHAT ARE REPORTS ────────────────────────────────── */
+    .intro-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .intro-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+    .intro-card .icon { font-size: 32px; margin-bottom: 12px; }
+    .intro-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .intro-card p { font-size: 13px; color: var(--text-2); line-height: 1.5; }
+
+    /* ── FINDER TOOL ─────────────────────────────────────── */
+    .finder {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .finder-header {
+      background: linear-gradient(90deg, var(--brand-dark), var(--brand));
+      color: white;
+      padding: 20px 24px;
+    }
+    .finder-header h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .finder-header p { font-size: 13px; opacity: 0.85; }
+    .finder-body { padding: 24px; }
+    .finder-question { font-size: 15px; font-weight: 600; margin-bottom: 14px; color: var(--text); }
+    .finder-options { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+    .finder-opt {
+      padding: 10px 16px;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      color: var(--text);
+    }
+    .finder-opt:hover { border-color: var(--brand); background: var(--brand-light); }
+    .finder-opt.selected { border-color: var(--brand); background: var(--brand-light); color: var(--brand-dark); }
+    .finder-result {
+      background: #F0FDF4;
+      border: 1.5px solid #86EFAC;
+      border-radius: 10px;
+      padding: 16px 20px;
+      display: none;
+    }
+    .finder-result.show { display: block; }
+    .finder-result h4 { font-size: 14px; font-weight: 600; color: #166534; margin-bottom: 6px; }
+    .finder-result p { font-size: 13px; color: #166534; line-height: 1.5; }
+    .finder-result .report-tag {
+      display: inline-block;
+      background: #DCFCE7;
+      border: 1px solid #86EFAC;
+      color: #166534;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin: 8px 4px 0 0;
+      cursor: pointer;
+    }
+    .finder-result .report-tag:hover { background: #BBF7D0; }
+    .finder-reset {
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--brand-dark);
+      cursor: pointer;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    /* ── REPORT CARDS ────────────────────────────────────── */
+    .reports-filter-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      align-items: center;
+    }
+    .filter-chip {
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      cursor: pointer;
+      transition: all 0.15s;
+      color: var(--text-2);
+    }
+    .filter-chip:hover { border-color: var(--brand); color: var(--brand-dark); }
+    .filter-chip.active { background: var(--brand); border-color: var(--brand); color: white; }
+    .filter-label { font-size: 13px; color: var(--text-3); margin-right: 4px; }
+
+    .reports-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .report-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1.5px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: box-shadow 0.15s, transform 0.15s;
+      cursor: pointer;
+    }
+    .report-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.12); transform: translateY(-2px); }
+    .report-card.hidden { display: none; }
+    .report-card-top {
+      padding: 20px 20px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .report-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+    .report-card-info { flex: 1; }
+    .report-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .report-format-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .badge-pdf { background: #FEE2E2; color: #991B1B; }
+    .badge-csv { background: #D1FAE5; color: #065F46; }
+    .badge-xls { background: #DBEAFE; color: #1E40AF; }
+    .badge-multi { background: #EDE9FE; color: #5B21B6; }
+
+    .report-card-body { padding: 0 20px 20px; }
+    .report-tagline { font-size: 13px; color: var(--text-2); line-height: 1.5; margin: 10px 0 12px; }
+
+    .report-expand-toggle {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--brand-dark);
+      cursor: pointer;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .report-expand-toggle:hover { background: var(--brand-light); }
+    .chevron { transition: transform 0.2s; display: inline-block; }
+    .chevron.open { transform: rotate(180deg); }
+
+    .report-detail {
+      display: none;
+      padding: 16px 20px;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+    .report-detail.open { display: block; }
+    .report-detail ul { padding-left: 18px; }
+    .report-detail ul li { font-size: 13px; color: var(--text-2); margin-bottom: 5px; line-height: 1.5; }
+    .report-use-case {
+      margin-top: 12px;
+      background: var(--white);
+      border-radius: 8px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+    }
+    .report-use-case .uc-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3); margin-bottom: 6px; }
+    .report-use-case .uc-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-2); margin-bottom: 4px; }
+    .report-where {
+      margin-top: 12px;
+      background: #EFF6FF;
+      border-radius: 8px;
+      padding: 12px 14px;
+      border: 1px solid #BFDBFE;
+    }
+    .report-where .w-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #1E40AF; margin-bottom: 6px; }
+    .report-where .w-path { font-size: 13px; color: #1E40AF; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .path-step {
+      background: #DBEAFE;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .path-arrow { color: #93C5FD; font-size: 14px; }
+
+    /* ── HOW THEY RELATE ─────────────────────────────────── */
+    .relate-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 640px) { .relate-grid { grid-template-columns: 1fr; } }
+    .relate-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 20px;
+      border: 1.5px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    .relate-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .relate-card p { font-size: 13px; color: var(--text-2); line-height: 1.5; }
+    .relate-reports { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+    .relate-tag {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text-2);
+    }
+
+    /* ── FAQ ─────────────────────────────────────────────── */
+    .faq-list { display: flex; flex-direction: column; gap: 10px; }
+    .faq-item {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1.5px solid var(--border);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .faq-q {
+      width: 100%;
+      text-align: left;
+      padding: 18px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--text);
+    }
+    .faq-q:hover { background: var(--bg); }
+    .faq-a {
+      display: none;
+      padding: 0 20px 18px;
+      font-size: 14px;
+      color: var(--text-2);
+      line-height: 1.65;
+    }
+    .faq-a.open { display: block; }
+
+    /* ── DIVIDER ─────────────────────────────────────────── */
+    .section-divider { border: none; border-top: 1px solid var(--border); max-width: 960px; margin: 0 auto; }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-3);
+    }
+    footer a { color: var(--brand-dark); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .hero { padding: 40px 16px 36px; }
+      .hero-stats { gap: 20px; }
+      .section { padding: 36px 16px; }
+      .reports-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── SCROLL OFFSET ───────────────────────────────────── */
+    .scroll-target { scroll-margin-top: 116px; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="12" height="12" rx="2" fill="white" opacity="0.9"/>
+        <path d="M5 8h6M8 5v6" stroke="#00B4D8" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </div>
+    SumUp
+  </a>
+  <span class="header-badge">Reports Guide</span>
+</header>
+
+<!-- STICKY NAV -->
+<div class="nav-pills-wrap">
+  <nav class="nav-pills">
+    <button class="nav-pill active" onclick="scrollTo('intro')">What are reports?</button>
+    <button class="nav-pill" onclick="scrollTo('finder')">Find your report</button>
+    <button class="nav-pill" onclick="scrollTo('all-reports')">All reports</button>
+    <button class="nav-pill" onclick="scrollTo('relate')">How they connect</button>
+    <button class="nav-pill" onclick="scrollTo('faq')">FAQ</button>
+  </nav>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">SumUp Reports</div>
+  <h1>Everything you need to know<br/>about your business data</h1>
+  <p>Your reports are ready and waiting. This guide shows you what each report contains, when to use it, and exactly where to find it.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="n">10</div><div class="l">available reports</div></div>
+    <div class="hero-stat"><div class="n">3</div><div class="l">file formats</div></div>
+    <div class="hero-stat"><div class="n">All</div><div class="l">free to download</div></div>
+  </div>
+</div>
+
+<!-- SECTION: WHAT ARE REPORTS -->
+<div id="intro" class="scroll-target"></div>
+<section class="section">
+  <div class="section-title">What are reports?</div>
+  <div class="section-sub">Reports are downloadable files that summarise your business activity — sales, payouts, taxes, fees, and more. They're generated automatically by SumUp, so the data is always ready.</div>
+  <div class="intro-grid">
+    <div class="intro-card">
+      <div class="icon">🧾</div>
+      <h3>For tax filing</h3>
+      <p>Quickly pull together the numbers your accountant or tax authority needs.</p>
+    </div>
+    <div class="intro-card">
+      <div class="icon">📊</div>
+      <h3>For reconciliation</h3>
+      <p>Match your payouts to your bank statement, line by line.</p>
+    </div>
+    <div class="intro-card">
+      <div class="icon">📦</div>
+      <h3>For stock &amp; inventory</h3>
+      <p>See exactly which items sold and how much revenue each generated.</p>
+    </div>
+    <div class="intro-card">
+      <div class="icon">📁</div>
+      <h3>For your accountant</h3>
+      <p>Share clean, formatted files your accountant can work with directly.</p>
+    </div>
+  </div>
+</section>
+<hr class="section-divider"/>
+
+<!-- SECTION: REPORT FINDER -->
+<div id="finder" class="scroll-target"></div>
+<section class="section">
+  <div class="section-title">Not sure which report you need?</div>
+  <div class="section-sub">Tell us what you're trying to do and we'll point you to the right one.</div>
+  <div class="finder">
+    <div class="finder-header">
+      <h3>🔍 Report Finder</h3>
+      <p>Answer one question to find your report</p>
+    </div>
+    <div class="finder-body">
+      <div class="finder-question">What are you trying to do?</div>
+      <div class="finder-options" id="finderOptions">
+        <button class="finder-opt" onclick="selectJob(this, 'tax')">📋 File my taxes</button>
+        <button class="finder-opt" onclick="selectJob(this, 'reconcile')">🏦 Reconcile with my bank</button>
+        <button class="finder-opt" onclick="selectJob(this, 'items')">📦 See what items sold</button>
+        <button class="finder-opt" onclick="selectJob(this, 'fees')">💳 Check my SumUp fees</button>
+        <button class="finder-opt" onclick="selectJob(this, 'invoices')">🧾 Find invoices or credit notes</button>
+        <button class="finder-opt" onclick="selectJob(this, 'eod')">📅 Get my end-of-day summary</button>
+        <button class="finder-opt" onclick="selectJob(this, 'payouts')">💰 See my payout details</button>
+        <button class="finder-opt" onclick="selectJob(this, 'overview')">🔍 Get an overview of my sales</button>
+      </div>
+      <div class="finder-result" id="finderResult">
+        <h4 id="finderResultTitle"></h4>
+        <p id="finderResultText"></p>
+        <div id="finderResultTags"></div>
+        <button class="finder-reset" onclick="resetFinder()">← Start over</button>
+      </div>
+    </div>
+  </div>
+</section>
+<hr class="section-divider"/>
+
+<!-- SECTION: ALL REPORTS -->
+<div id="all-reports" class="scroll-target"></div>
+<section class="section">
+  <div class="section-title">All available reports</div>
+  <div class="section-sub">Click any report card to see what's inside and where to find it.</div>
+
+  <div class="reports-filter-bar">
+    <span class="filter-label">Filter by:</span>
+    <button class="filter-chip active" onclick="filterReports('all', this)">All (10)</button>
+    <button class="filter-chip" onclick="filterReports('pdf', this)">PDF</button>
+    <button class="filter-chip" onclick="filterReports('csv', this)">CSV</button>
+    <button class="filter-chip" onclick="filterReports('xls', this)">XLS / Spreadsheet</button>
+    <button class="filter-chip" onclick="filterReports('tax', this)">Tax &amp; compliance</button>
+  </div>
+
+  <div class="reports-grid" id="reportsGrid">
+
+    <!-- SALES -->
+    <div class="report-card" data-type="xls csv" data-tags="tax reconcile overview">
+      <div class="report-card-top">
+        <div class="report-icon" style="background:#EDE9FE;">📈</div>
+        <div class="report-card-info">
+          <div class="report-name">Sales</div>
+          <span class="report-format-badge badge-multi">XLS / CSV</span>
+        </div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-tagline">A detailed spreadsheet of every individual sale — great for reconciliation and tax filing.</div>
+      </div>
+      <button class="report-expand-toggle" onclick="toggleReport(this)">
+        What's inside &amp; where to find it <span class="chevron">▾</span>
+      </button>
+      <div class="report-detail">
+        <ul>
+          <li>Sales breakdown (items, tips, refunds, discounts)</li>
+          <li>Tax breakdown per transaction</li>
+          <li>Payment methods used</li>
+          <li>Employee-level breakdown</li>
+        </ul>
+        <div class="report-use-case">
+          <div class="uc-label">Best used for</div>
+          <div class="uc-item">📋 Tax filing &amp; accounting</div>
+          <div class="uc-item">🏦 Bank reconciliation</div>
+          <div class="uc-item">👥 Employee sales tracking</div>
+        </div>
+        <div class="report-where">
+          <div class="w-label">Where to find it</div>
+          <div class="w-path">
+            <span class="path-step">Dashboard</span>
+            <span class="path-arrow">›</span>
+            <span class="path-step">Reports</span>
+            <span class="path-arrow">›</span>
+            <span class="path-step">Sales</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REVENUE -->
+    <div class="report-card" data-type="pdf" data-tags="overview tax">
+      <div class="report-card-top">
+        <div class="report-icon" style="background:#FEF3C7;">💰</div>
+        <div class="report-card-info">
+          <div class="report-name">Revenue</div>
+          <span class="report-format-badge badge-pdf">PDF</span>
+        </div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-tagline">A clean summary of your total revenue — useful for a quick business overview or accountant briefing.</div>
+      </div>
+      <button class="report-expand-toggle" onclick="toggleReport(this)">
+        What's inside &amp; where to find it <span class="chevron">▾</span>
+      </button>
+      <div class="report-detail">
+        <ul>
+          <li>Sales summary (tips, refunds, discounts)</li>
+          <li>Tax breakdown</li>
+          <li>Payment methods</li>
+          <li>Employee summary</li>
+        </ul>
+        <div class="report-use-case">
+          <div class="uc-label">Best used for</div>
+          <div class="uc-item">📊 Sharing with your accountant</div>
+          <div class="uc-item">📋 Quarterly business review</div>
+        </div>
+        <div class="report-where">
+          <div class="w-label">Where to find it</div>
+          <div class="w-path">
+            <span class="path-step">Dashboard</span>
+            <span class="path-arrow">›</span>
+            <span class="path-step">Reports</span>
+            <span class="path-arrow">›</span>
+            <span class="path-step">Revenue</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ITEMS -->
+    <div class="report-card" data-type="csv" data-tags="items">
+      <div class="report-card-top">
+        <div class="report-icon" style="background:#D1FAE5;">📦</div>
+        <div class="report-card-info">
+          <div class="report-name">Items</div>
+          <span class="report-format-badge badge-csv">CSV</span>
+        </div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-tagline">See exactly what you sold — item by item — and how much each earned you.</div>
+      </div>
+      <button class="report-expand-toggle" onclick="toggleReport(this)">
+        What's inside &amp; where to find it <span class="chevron">▾</span>
+      </button>
+      <div class="report-detail">
+        <ul>
+          <li>Item name and variation</li>
+          <li>Quantity sold</li>
+          <li>Amount earned per item</li>
+        </ul>
+        <div class="report-use-case">
+          <div class="uc-label">Best used for</div>
+          <div class="uc-item">📦 Stock management</div>
+          <div class="uc-item">📈 Best-seller analysis</div>
+        </div>
+        <div class="report-where">
+          <div class="w-label">Where to find it</div>
+          <div class="w-path">
+            <span class="path-step">Dashboard</span>
+            <span class="path-arrow">›</span>
+            <span class="path-step">Reports</span>
+            <span class="path-arrow">›</span>
+            <span class="path-step">Items</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYOUTS -->
+    <div class="report-card" data-type="pdf" data-tags="reconcile payouts">
+      <div class="report-card-top">
+        <div class="report-icon" style="background:#DBEAFE;">🏦</div>
+        <div class="report-card-info">
+          <div class="report-name">Payouts</div>
+          <span class="report-format-badge badge-pdf">PDF</span>
+        </div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-tagline">A breakdown of every payout sent to your bank account, with fees and status included.</div>
+      </div>
+      <button class="report-expand-toggle" onclick="toggleReport(this)">
+        What's inside &amp; where to find it <span class="chevron">▾</span>
+      </button>
+      <div class="report-detail">
+        <ul>
+          <li>Payout ID and status</li>
+          <li>Associated fees</li>
+          <li>Responsible account</li>
+        </ul>
+        <div class="report-use-case">
+          <div class="uc-label">Best used for</div>
+          <div class="uc-item">🏦 Matching payouts to bank statements</div>
+          <div class="uc-item">❓ Investigating a missing payout</div>
+        </div>
+        <div class="report-where">
+          <div class="w-label">Where to find it</div>
+          <div class="w-path">
+            <span class="path-step">Dashboard</span>
+            <span class="path-arrow">›</span>
+            <span class="path-step">Reports</span>
+            <span class="path-arrow">›</span>
+            <span class="path-step">Payouts</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYMENTS -->
+    <div class="report-card" data-type="pdf" data-tags="reconcile payouts">
+      <div class="report-card-top">
+        <div class="report-icon" style="background:#FEE2E2;">💳</div>
+        <div class="report-card-info">
+          <div class="report-name">Payments</div>
+          <span class="report-format-badge badge-pdf">PDF</span>
+        </div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-tagline">A detailed look at all payments that made up your payouts — including refunds and chargebacks.</div>
+      </div>
+      <button class="report-expand-toggle" onclick="toggleReport(this)">
+        What's inside &amp; where to find it <span class="chevron">▾</span>
+      </button>
+      <div class="report-detail">
+        <ul>
+          <li>Paid out payments</li>
+          <li>Payments pending payout</li>
+          <li>Refunds, chargebacks, and deductions</li>
+          <li>Fees and subscriptions</li>
+        </ul>
+        <div class="report-use-case">
+          <div class="uc-label">Best used for</div>
+          <div class="uc-item">🔍 Investigating a specific payment</div>
+          <div class="uc-item">🏦 Detailed bank reconciliation</div>
+        </div>
+        <div class="report-where">
+          <div class="w-label">Where to find it</div>
+          <div class="w-path">
+            <span class="path-step">Dashboard</span>
+            <span class="path-arrow">›</span>
+            <span class="path-step">Reports</span>
+            <span class="path-arrow">›</span>
+            <span class="path-step">Payments</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEES -->
+    <div class="report-card" data-type="pdf" data-tags="fees tax">
+      <div class="report-card-top">
+        <div class="report-icon" style="background:#FCE7F3;">🧮</div>
+        <div class="report-card-info">
+          <div class="report-name">Fees</div>
+          <span class="report-format-badge badge-pdf">PDF</span>
+        </div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-tagline">A monthly summary of all SumUp fees charged, calculated against your revenue for that period.</div>
+      </div>
+      <button class="report-expand-toggle" onclick="toggleReport(this)">
+        What's inside &amp; where to find it <span class="chevron">▾</span>
+      </button>
+      <div class="report-detail">
+        <ul>
+          <li>Monthly SumUp fees</li>
+          <li>Calculated against period revenue</li>
+          <li>Generated automatically each month</li>
+        </ul>
+        <div class="report-use-case">
+          <div class="uc-label">Best used for</div>
+          <div class="uc-item">💳 Reviewing your SumUp costs</div>
+          <div class="uc-item">📋 Tax deduction records</div>
+        </div>
+        <div class="report-where">
+          <div class="w-label">Where to find it</div>
+          <div class="w-path">
+            <span class="path-step">Dashboard</span>
+            <span class="path-arrow">›</span>
+            <span class="path-step">Reports</span>
+            <span class="path-arrow">›</span>
+            <span class="path-step">Fees</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRANSACTIONS -->
+    <div class="report-card" data-type="csv xls" data-tags="reconcile overview">
+      <div class="report-card-top">
+        <div class="report-icon" style="background:#E0F2FE;">🔄</div>
+        <div class="report-card-info">
+          <div class="report-name">Transactions</div>
+          <span class="report-format-badge badge-multi">CSV / XLS</span>
+        </div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-tagline">Every transaction in one file — with payment method details, transaction IDs, and payout status.</div>
+      </div>
+      <button class="report-expand-toggle" onclick="toggleReport(this)">
+        What's inside &amp; where to find it <span class="chevron">▾</span>
+      </button>
+      <div class="report-detail">
+        <ul>
+          <li>Transaction ID and status</li>
+          <li>Payment methods and their details</li>
+          <li>Payout information</li>
+        </ul>
+        <div class="report-use-case">
+          <div class="uc-label">Best used for</div>
+          <div class="uc-item">🏦 Accounting and bookkeeping</div>
+          <div class="uc-item">🔍 Tracking a specific transaction</div>
+        </div>
+        <div class="report-where">
+          <div class="w-label">Where to find it</div>
+          <div class="w-path">
+            <span class="path-step">Dashboard</span>
+            <span class="path-arrow">›</span>
+            <span class="path-step">Reports</span>
+            <span class="path-arrow">›</span>
+            <span class="path-step">Transactions</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INVOICES -->
+    <div class="report-card" data-type="csv xls" data-tags="invoices tax">
+      <div class="report-card-top">
+        <div class="report-icon" style="background:#F0FDF4;">🧾</div>
+        <div class="report-card-info">
+          <div class="report-name">Invoices</div>
+          <span class="report-format-badge badge-multi">CSV / XLS</span>
+        </div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-tagline">All your invoices, credit notes, quotes, and delivery notes in one downloadable file.</div>
+      </div>
+      <button class="report-expand-toggle" onclick="toggleReport(this)">
+        What's inside &amp; where to find it <span class="chevron">▾</span>
+      </button>
+      <div class="report-detail">
+        <ul>
+          <li>Invoices</li>
+          <li>Credit notes</li>
+          <li>Quotes</li>
+          <li>Delivery notes</li>
+        </ul>
+        <div class="report-use-case">
+          <div class="uc-label">Best used for</div>
+          <div class="uc-item">📋 VAT returns and tax filing</div>
+          <div class="uc-item">🧾 Sharing records with clients</div>
+        </div>
+        <div class="report-where">
+          <div class="w-label">Where to find it</div>
+          <div class="w-path">
+            <span class="path-step">Dashboard</span>
+            <span class="path-arrow">›</span>
+            <span class="path-step">Reports</span>
+            <span class="path-arrow">›</span>
+            <span class="path-step">Invoices</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END OF DAY -->
+    <div class="report-card" data-type="pdf" data-tags="eod overview">
+      <div class="report-card-top">
+        <div class="report-icon" style="background:#FEF9C3;">🌙</div>
+        <div class="report-card-info">
+          <div class="report-name">End of Day</div>
+          <span class="report-format-badge badge-pdf">PDF</span>
+        </div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-tagline">A daily close-out summary from your POS or Kiosk — includes your Z-number, totals, and tax breakdown.</div>
+      </div>
+      <button class="report-expand-toggle" onclick="toggleReport(this)">
+        What's inside &amp; where to find it <span class="chevron">▾</span>
+      </button>
+      <div class="report-detail">
+        <ul>
+          <li>Z-number</li>
+          <li>Total sales, refunds, and tips</li>
+          <li>Tax and payment method breakdown</li>
+          <li>POS and Kiosk activity</li>
+        </ul>
+        <div class="report-use-case">
+          <div class="uc-label">Best used for</div>
+          <div class="uc-item">📅 Daily cash-up and closing</div>
+          <div class="uc-item">🧾 Daily compliance records</div>
+        </div>
+        <div class="report-where">
+          <div class="w-label">Where to find it</div>
+          <div class="w-path">
+            <span class="path-step">Dashboard</span>
+            <span class="path-arrow">›</span>
+            <span class="path-step">Reports</span>
+            <span class="path-arrow">›</span>
+            <span class="path-step">End of Day</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POS FISCAL EXPORTS -->
+    <div class="report-card" data-type="csv" data-tags="tax">
+      <div class="report-card-top">
+        <div class="report-icon" style="background:#FEF2F2;">🏛️</div>
+        <div class="report-card-info">
+          <div class="report-name">POS Fiscal Exports</div>
+          <span class="report-format-badge badge-csv">Export</span>
+        </div>
+      </div>
+      <div class="report-card-body">
+        <div class="report-tagline">Download POS data in the format required by your local tax authority — used in the event of a tax audit.</div>
+      </div>
+      <button class="report-expand-toggle" onclick="toggleReport(this)">
+        What's inside &amp; where to find it <span class="chevron">▾</span>
+      </button>
+      <div class="report-detail">
+        <ul>
+          <li>POS transaction data formatted for tax authorities</li>
+          <li>Required for tax audit submissions</li>
+          <li>Country-specific format</li>
+        </ul>
+        <div class="report-use-case">
+          <div class="uc-label">Best used for</div>
+          <div class="uc-item">🏛️ Tax authority submissions</div>
+          <div class="uc-item">🔍 Responding to a tax audit</div>
+        </div>
+        <div class="report-where">
+          <div class="w-label">Where to find it</div>
+          <div class="w-path">
+            <span class="path-step">Dashboard</span>
+            <span class="path-arrow">›</span>
+            <span class="path-step">Reports</span>
+            <span class="path-arrow">›</span>
+            <span class="path-step">POS Fiscal Exports</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /reports-grid -->
+</section>
+<hr class="section-divider"/>
+
+<!-- SECTION: HOW THEY CONNECT -->
+<div id="relate" class="scroll-target"></div>
+<section class="section">
+  <div class="section-title">How reports connect to each other</div>
+  <div class="section-sub">Some reports zoom out, others zoom in. Here's how they relate so you know which level of detail you need.</div>
+  <div class="relate-grid">
+    <div class="relate-card">
+      <h4>🔭 Big picture first</h4>
+      <p>Start here for a summary of how your business is performing over a period.</p>
+      <div class="relate-reports">
+        <span class="relate-tag">Revenue</span>
+        <span class="relate-tag">End of Day</span>
+      </div>
+    </div>
+    <div class="relate-card">
+      <h4>🔍 Then dig deeper</h4>
+      <p>Once you know the totals, use these to break down every transaction.</p>
+      <div class="relate-reports">
+        <span class="relate-tag">Sales</span>
+        <span class="relate-tag">Transactions</span>
+        <span class="relate-tag">Payments</span>
+      </div>
+    </div>
+    <div class="relate-card">
+      <h4>🏦 Trace money to your bank</h4>
+      <p>Payments roll up into Payouts. Use both to match what landed in your account.</p>
+      <div class="relate-reports">
+        <span class="relate-tag">Payments</span>
+        <span class="relate-tag">→</span>
+        <span class="relate-tag">Payouts</span>
+      </div>
+    </div>
+    <div class="relate-card">
+      <h4>📋 Tax &amp; compliance</h4>
+      <p>These reports are the ones your accountant or tax authority will ask for.</p>
+      <div class="relate-reports">
+        <span class="relate-tag">Sales</span>
+        <span class="relate-tag">Invoices</span>
+        <span class="relate-tag">Fees</span>
+        <span class="relate-tag">POS Fiscal</span>
+      </div>
+    </div>
+  </div>
+</section>
+<hr class="section-divider"/>
+
+<!-- SECTION: FAQ -->
+<div id="faq" class="scroll-target"></div>
+<section class="section">
+  <div class="section-title">Frequently asked questions</div>
+  <div class="section-sub">Quick answers to the questions we hear most.</div>
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Where do I find my reports in the dashboard? <span class="chevron">▾</span>
+      </button>
+      <div class="faq-a">Log in to your SumUp dashboard, then look for <strong>Reports</strong> in the left-hand navigation menu. From there, you'll see all available reports listed. Select the one you need, choose your date range, and hit Download.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Can I choose a custom date range for my reports? <span class="chevron">▾</span>
+      </button>
+      <div class="faq-a">Yes — most reports let you set a custom date range before downloading. Simply select your start and end dates in the date picker and then download. The Fees report is generated monthly and covers a fixed calendar month.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        What's the difference between Payouts and Payments? <span class="chevron">▾</span>
+      </button>
+      <div class="faq-a"><strong>Payments</strong> are individual transactions — each time a customer pays you. <strong>Payouts</strong> are the batch transfers SumUp sends to your bank account, which bundle multiple payments together. Think of it like this: Payments are the ingredients, Payouts are the delivery.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Which report should I give to my accountant? <span class="chevron">▾</span>
+      </button>
+      <div class="faq-a">For most accountants, the <strong>Sales report</strong> (detailed breakdown per transaction) and the <strong>Fees report</strong> (your SumUp costs) are the most useful. If you issue invoices through SumUp, also share the <strong>Invoices report</strong>.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Why can't I see a report I'm expecting? <span class="chevron">▾</span>
+      </button>
+      <div class="faq-a">Some reports are only generated when there is relevant activity. For example, the End of Day report only appears if you used a SumUp POS or Kiosk that day. The Fees report is generated monthly — you won't see it until the end of the billing month. Also check that your selected date range covers the period you're looking for.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Are reports available for all countries? <span class="chevron">▾</span>
+      </button>
+      <div class="faq-a">Most reports are available across all SumUp markets. However, some reports — like POS Fiscal Exports — are specific to certain countries where local tax authorities require a particular data format. If you don't see a report listed, it may not apply to your country.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Can I automate or schedule report downloads? <span class="chevron">▾</span>
+      </button>
+      <div class="faq-a">Currently, reports are downloaded manually from the dashboard. They are generated in real time when you request them, so the data is always up to date. You can download as often as you need.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  Need more help? <a href="#">Contact SumUp Support</a> &nbsp;·&nbsp; <a href="#">SumUp Help Centre</a>
+</footer>
+
+<script>
+  /* ── SCROLL TO SECTION ─── */
+  function scrollTo(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    document.querySelectorAll('.nav-pill').forEach((p, i) => {
+      p.classList.toggle('active', p.getAttribute('onclick').includes(id));
+    });
+  }
+
+  /* ── REPORT EXPAND ─── */
+  function toggleReport(btn) {
+    const detail = btn.nextElementSibling;
+    const chevron = btn.querySelector('.chevron');
+    const isOpen = detail.classList.toggle('open');
+    chevron.classList.toggle('open', isOpen);
+    btn.querySelector('span:first-child') && null;
+  }
+
+  /* ── FAQ ─── */
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const chevron = btn.querySelector('.chevron');
+    const isOpen = answer.classList.toggle('open');
+    chevron.classList.toggle('open', isOpen);
+  }
+
+  /* ── FILTER CHIPS ─── */
+  function filterReports(type, chip) {
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    document.querySelectorAll('.report-card').forEach(card => {
+      if (type === 'all') {
+        card.classList.remove('hidden');
+        return;
+      }
+      const cardType = card.dataset.type || '';
+      const cardTags = card.dataset.tags || '';
+      if (type === 'tax') {
+        card.classList.toggle('hidden', !cardTags.includes('tax'));
+      } else {
+        card.classList.toggle('hidden', !cardType.includes(type));
+      }
+    });
+  }
+
+  /* ── FINDER ─── */
+  const finderData = {
+    tax: {
+      title: '📋 For tax filing, use these reports:',
+      text: 'These reports have the transaction and tax breakdowns your accountant or tax authority will need.',
+      tags: ['Sales', 'Invoices', 'Fees', 'POS Fiscal Exports']
+    },
+    reconcile: {
+      title: '🏦 For bank reconciliation, use these reports:',
+      text: 'Match what SumUp sent to your bank against the individual payments that made it up.',
+      tags: ['Payouts', 'Payments', 'Transactions']
+    },
+    items: {
+      title: '📦 To see what items sold, use:',
+      text: 'The Items report shows every product sold, how many units, and revenue per item.',
+      tags: ['Items']
+    },
+    fees: {
+      title: '💳 To check your SumUp fees, use:',
+      text: 'The Fees report is generated monthly and shows exactly what SumUp charged you and why.',
+      tags: ['Fees']
+    },
+    invoices: {
+      title: '🧾 For invoices and credit notes, use:',
+      text: 'All your invoices, quotes, credit notes, and delivery notes in one downloadable file.',
+      tags: ['Invoices']
+    },
+    eod: {
+      title: '📅 For your end-of-day summary, use:',
+      text: 'Get your daily Z-number, totals, and tax breakdown from your POS or Kiosk.',
+      tags: ['End of Day']
+    },
+    payouts: {
+      title: '💰 To see payout details, use:',
+      text: 'Payouts shows each batch transfer to your bank. Payments shows what made up each payout.',
+      tags: ['Payouts', 'Payments']
+    },
+    overview: {
+      title: '🔍 For a sales overview, use:',
+      text: 'Revenue gives a clean summary; Sales gives you the full transaction-level detail.',
+      tags: ['Revenue', 'Sales']
+    }
+  };
+
+  let selectedOpt = null;
+
+  function selectJob(btn, job) {
+    if (selectedOpt === job) return;
+    selectedOpt = job;
+    document.querySelectorAll('.finder-opt').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    const data = finderData[job];
+    document.getElementById('finderResultTitle').textContent = data.title;
+    document.getElementById('finderResultText').textContent = data.text;
+    const tagsEl = document.getElementById('finderResultTags');
+    tagsEl.innerHTML = '';
+    data.tags.forEach(tag => {
+      const span = document.createElement('span');
+      span.className = 'report-tag';
+      span.textContent = tag;
+      span.onclick = () => {
+        document.getElementById('all-reports').scrollIntoView({ behavior: 'smooth' });
+      };
+      tagsEl.appendChild(span);
+    });
+    document.getElementById('finderResult').classList.add('show');
+  }
+
+  function resetFinder() {
+    selectedOpt = null;
+    document.querySelectorAll('.finder-opt').forEach(b => b.classList.remove('selected'));
+    document.getElementById('finderResult').classList.remove('show');
+  }
+
+  /* ── ACTIVE NAV ON SCROLL ─── */
+  const sections = ['intro', 'finder', 'all-reports', 'relate', 'faq'];
+  const pills = document.querySelectorAll('.nav-pill');
+  window.addEventListener('scroll', () => {
+    let current = 'intro';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 140) current = id;
+    });
+    pills.forEach(p => {
+      p.classList.toggle('active', p.getAttribute('onclick').includes(current));
+    });
+  }, { passive: true });
+</script>
+</body>
+</html>
