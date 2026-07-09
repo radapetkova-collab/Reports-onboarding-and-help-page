@@ -480,9 +480,9 @@
 
 
     
-    /* ABSOLUTE FIX: always 3 columns for report cards (except tiny screens) */
-    .reports-grid { display: grid !important; gap: 16px !important; grid-template-columns: repeat(3, minmax(320px, 1fr)) !important; }
-    @media (max-width: 980px) { .reports-grid { grid-template-columns: repeat(2, minmax(300px, 1fr)) !important; } }
+    /* Responsive report cards: 3 / 2 / 1 columns by screen width */
+    .reports-grid { display: grid !important; gap: 16px !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+    @media (max-width: 980px) { .reports-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
     @media (max-width: 640px) { .reports-grid { grid-template-columns: 1fr !important; } }
 
 </style>
