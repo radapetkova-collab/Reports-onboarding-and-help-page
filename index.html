@@ -304,10 +304,9 @@
     .chevron.open { transform: rotate(180deg); }
 
     .report-detail {
-      display: none;
-      padding: 16px 20px;
-      background: var(--bg);
-      border-top: 1px solid var(--border);
+      display: block;
+      padding: 0 20px 20px;
+      background: transparent;
     }
     .report-detail.open { display: block; }
     .report-detail ul { padding-left: 18px; }
@@ -633,16 +632,7 @@
       <div class="report-card-body">
         <div class="report-tagline">Shows what happened in your business — sales, tips, refunds, discounts, by payment method and employee.</div>
       </div>
-      <button class="report-expand-toggle" onclick="toggleReport(this)">
-        What's inside &amp; where to find it <span class="chevron">▾</span>
-      </button>
       <div class="report-detail">
-        <ul>
-          <li>Sales breakdown (items, tips, refunds, discounts)</li>
-          <li>Tax breakdown per transaction</li>
-          <li>Payment methods used</li>
-          <li>Employee-level breakdown</li>
-        </ul>
         <div class="report-use-case">
           <div class="uc-label">Best used for</div>
           <div class="uc-item">📋 Tax filing &amp; accounting</div>
@@ -667,16 +657,7 @@
       <div class="report-card-body">
         <div class="report-tagline">A summarised view of your total revenue for a period.</div>
       </div>
-      <button class="report-expand-toggle" onclick="toggleReport(this)">
-        What's inside &amp; where to find it <span class="chevron">▾</span>
-      </button>
       <div class="report-detail">
-        <ul>
-          <li>Sales summary (tips, refunds, discounts)</li>
-          <li>Tax breakdown</li>
-          <li>Payment methods</li>
-          <li>Employee summary</li>
-        </ul>
         <div class="report-use-case">
           <div class="uc-label">Best used for</div>
           <div class="uc-item">📊 Sharing with your accountant</div>
@@ -700,15 +681,7 @@
       <div class="report-card-body">
         <div class="report-tagline">Shows what you sold item by item — quantities, variations, and revenue per product.</div>
       </div>
-      <button class="report-expand-toggle" onclick="toggleReport(this)">
-        What's inside &amp; where to find it <span class="chevron">▾</span>
-      </button>
       <div class="report-detail">
-        <ul>
-          <li>Item name and variation</li>
-          <li>Quantity sold</li>
-          <li>Amount earned per item</li>
-        </ul>
         <div class="report-use-case">
           <div class="uc-label">Best used for</div>
           <div class="uc-item">📦 Stock management</div>
@@ -732,15 +705,7 @@
       <div class="report-card-body">
         <div class="report-tagline">Shows each transfer sent to your bank account with fees and status.</div>
       </div>
-      <button class="report-expand-toggle" onclick="toggleReport(this)">
-        What's inside &amp; where to find it <span class="chevron">▾</span>
-      </button>
       <div class="report-detail">
-        <ul>
-          <li>Payout ID and status</li>
-          <li>Associated fees</li>
-          <li>Responsible account</li>
-        </ul>
         <div class="report-use-case">
           <div class="uc-label">Best used for</div>
           <div class="uc-item">🏦 Matching payouts to bank statements</div>
@@ -764,16 +729,7 @@
       <div class="report-card-body">
         <div class="report-tagline">Shows all payments that made up your payouts, including refunds and chargebacks.</div>
       </div>
-      <button class="report-expand-toggle" onclick="toggleReport(this)">
-        What's inside &amp; where to find it <span class="chevron">▾</span>
-      </button>
       <div class="report-detail">
-        <ul>
-          <li>Paid out payments</li>
-          <li>Payments pending payout</li>
-          <li>Refunds, chargebacks, and deductions</li>
-          <li>Fees and subscriptions</li>
-        </ul>
         <div class="report-use-case">
           <div class="uc-label">Best used for</div>
           <div class="uc-item">🔍 Investigating a specific payment</div>
@@ -797,15 +753,7 @@
       <div class="report-card-body">
         <div class="report-tagline">Monthly summary of SumUp fees calculated against your revenue.</div>
       </div>
-      <button class="report-expand-toggle" onclick="toggleReport(this)">
-        What's inside &amp; where to find it <span class="chevron">▾</span>
-      </button>
       <div class="report-detail">
-        <ul>
-          <li>Monthly SumUp fees</li>
-          <li>Calculated against period revenue</li>
-          <li>Generated automatically each month</li>
-        </ul>
         <div class="report-use-case">
           <div class="uc-label">Best used for</div>
           <div class="uc-item">💳 Reviewing your SumUp costs</div>
@@ -829,15 +777,7 @@
       <div class="report-card-body">
         <div class="report-tagline">Shows every individual payment with method details, IDs, and payout status.</div>
       </div>
-      <button class="report-expand-toggle" onclick="toggleReport(this)">
-        What's inside &amp; where to find it <span class="chevron">▾</span>
-      </button>
       <div class="report-detail">
-        <ul>
-          <li>Transaction ID and status</li>
-          <li>Payment methods and their details</li>
-          <li>Payout information</li>
-        </ul>
         <div class="report-use-case">
           <div class="uc-label">Best used for</div>
           <div class="uc-item">🏦 Accounting and bookkeeping</div>
@@ -861,16 +801,7 @@
       <div class="report-card-body">
         <div class="report-tagline">All your invoices, credit notes, quotes, and delivery notes.</div>
       </div>
-      <button class="report-expand-toggle" onclick="toggleReport(this)">
-        What's inside &amp; where to find it <span class="chevron">▾</span>
-      </button>
       <div class="report-detail">
-        <ul>
-          <li>Invoices</li>
-          <li>Credit notes</li>
-          <li>Quotes</li>
-          <li>Delivery notes</li>
-        </ul>
         <div class="report-use-case">
           <div class="uc-label">Best used for</div>
           <div class="uc-item">📋 VAT returns and tax filing</div>
@@ -894,16 +825,7 @@
       <div class="report-card-body">
         <div class="report-tagline">Daily POS/Kiosk summary with Z-number, totals, and payment method breakdown.</div>
       </div>
-      <button class="report-expand-toggle" onclick="toggleReport(this)">
-        What's inside &amp; where to find it <span class="chevron">▾</span>
-      </button>
       <div class="report-detail">
-        <ul>
-          <li>Z-number</li>
-          <li>Total sales, refunds, and tips</li>
-          <li>Tax and payment method breakdown</li>
-          <li>POS and Kiosk activity</li>
-        </ul>
         <div class="report-use-case">
           <div class="uc-label">Best used for</div>
           <div class="uc-item">📅 Daily cash-up and closing</div>
@@ -927,15 +849,7 @@
       <div class="report-card-body">
         <div class="report-tagline">POS data formatted for tax authority submissions and audits.</div>
       </div>
-      <button class="report-expand-toggle" onclick="toggleReport(this)">
-        What's inside &amp; where to find it <span class="chevron">▾</span>
-      </button>
       <div class="report-detail">
-        <ul>
-          <li>POS transaction data formatted for tax authorities</li>
-          <li>Required for tax audit submissions</li>
-          <li>Country-specific format</li>
-        </ul>
         <div class="report-use-case">
           <div class="uc-label">Best used for</div>
           <div class="uc-item">🏛️ Tax authority submissions</div>
